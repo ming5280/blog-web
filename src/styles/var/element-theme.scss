@@ -1,0 +1,28 @@
+/**
+ * @description：自定义主题颜色
+ */
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #0960bd,
+    ),
+  ),
+  $border-radius: (
+    'base': 2px,
+  ),
+  $button: (
+    'hover-bg-color': #ffffff,
+    'hover-border-color': #2a7dc9,
+    'hover-text-color': #2a7dc9,
+  ),
+  $popper: (
+    'border-radius': 2px,
+  ),
+  $input: (
+    // 'focus-border-color': #0960bd33,
+  )
+);
+
+// 这里引入后 就不需要手动引入element样式了
+@use 'element-plus/theme-chalk/src/index.scss' as *;

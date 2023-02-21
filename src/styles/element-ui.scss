@@ -1,0 +1,11 @@
+/**
+ * @description：element plus 样式覆盖
+ */
+
+// checkbox
+.el-checkbox__inner::after {
+  border: 2px solid var(--el-checkbox-checked-icon-color);
+  border-left: 0;
+  border-top: 0;
+  top: 0px;
+}
