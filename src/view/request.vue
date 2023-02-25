@@ -8,34 +8,34 @@
 </template>
 
 <script setup lang="ts" name="RequestPage">
-import { getUserList, login } from '/@/api/demo/user';
+  import { getUserList, login } from '/@/api/demo/user';
 
-const requestUserLsit = async () => {
-  let result = await getUserList({
-    id: '1000010',
-  });
+  const requestUserLsit = async () => {
+    let result = await getUserList({
+      id: '1000010',
+    });
 
-  console.log('list>>>', result);
-};
+    console.log('list>>>', result);
+  };
 
-const requestLogin = async () => {
-  const result = await login({
-    username: 'admin',
-    password: '123456',
-  });
-  console.log('user>>>', result);
-};
+  const requestLogin = async () => {
+    const result = await login({
+      username: 'admin',
+      password: '123456',
+    });
+    console.log('user>>>', result);
+  };
 
-const send = () => {
-  requestLogin();
-  requestUserLsit();
-};
+  const send = () => {
+    requestLogin();
+    requestUserLsit();
+  };
 </script>
 
 <style lang="scss" scoped>
-// .wrap {
-//   margin: 30px auto;
-//   width: 300px;
-//   height: auto;
-// }
+  // .wrap {
+  //   margin: 30px auto;
+  //   width: 300px;
+  //   height: auto;
+  // }
 </style>

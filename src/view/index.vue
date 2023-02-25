@@ -16,19 +16,19 @@
 <script setup lang="ts" name="IndexPage"></script>
 
 <style lang="scss" scoped>
-.container {
-  width: 100%;
-  height: 100%;
-  img {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
+  .container {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+    a {
+      display: block;
+      text-align: center;
+      text-decoration: underline;
+      color: $light-blue;
+    }
   }
-  a {
-    display: block;
-    text-align: center;
-    text-decoration: underline;
-    color: $light-blue;
-  }
-}
 </style>

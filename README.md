@@ -25,6 +25,7 @@ blog
 ### 待完成
 
 0.从新 install 包，将项目包进行更新 1.增加 blog 静态页面
+2.script 内缩进
 
 ### record
 

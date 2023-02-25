@@ -34,4 +34,6 @@ module.exports = {
   htmlWhitespaceSensitivity: 'css',
   // 换行符使用 lf
   endOfLine: 'auto',
+  // 是否在Vue文件中对代码和标签进行缩进，script和style部分
+  vueIndentScriptAndStyle: true,
 };

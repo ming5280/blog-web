@@ -7,7 +7,6 @@ import setupComponents from '/@/plugins/element';
 // import { setupGlobDirectives } from './directives';
 
 import '/@/styles/font-awesome/css/font-awesome.css';
-import '/@/styles/layui/css/layui.css';
 import '/@/styles/index.scss';
 import '/@/styles/var/element-theme.scss';
 

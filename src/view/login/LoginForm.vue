@@ -45,50 +45,50 @@
 </template>
 
 <script setup lang="ts" name="LoginForm">
-import { login } from '/@/api/demo/user';
-const form = reactive({
-  username: 'admin',
-  password: '123456',
-  rememberMe: false,
-});
+  import { login } from '/@/api/demo/user';
+  const form = reactive({
+    username: 'admin',
+    password: '123456',
+    rememberMe: false,
+  });
 
-const submmit = async () => {
-  const { username, password } = form;
-  await login({ username, password });
-};
+  const submmit = async () => {
+    const { username, password } = form;
+    await login({ username, password });
+  };
 </script>
 
 <style lang="scss" scoped>
-.login-form {
-  h2 {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
+  .login-form {
+    h2 {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    :deep(.forgot-pwd .el-form-item__content) {
+      justify-content: flex-end;
+    }
+
+    :deep(input:not([type='checkbox'])) {
+      min-width: 360px;
+
+      @media (max-width: $screen-xl) {
+        min-width: 320px;
+      }
+
+      @media (max-width: $screen-lg) {
+        min-width: 260px;
+      }
+
+      @media (max-width: $screen-md) {
+        min-width: 240px;
+      }
+
+      @media (max-width: $screen-sm) {
+        min-width: 160px;
+      }
+    }
   }
-
-  :deep(.forgot-pwd .el-form-item__content) {
-    justify-content: flex-end;
-  }
-
-  :deep(input:not([type='checkbox'])) {
-    min-width: 360px;
-
-    @media (max-width: $screen-xl) {
-      min-width: 320px;
-    }
-
-    @media (max-width: $screen-lg) {
-      min-width: 260px;
-    }
-
-    @media (max-width: $screen-md) {
-      min-width: 240px;
-    }
-
-    @media (max-width: $screen-sm) {
-      min-width: 160px;
-    }
-  }
-}
 </style>
