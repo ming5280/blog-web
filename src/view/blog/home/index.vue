@@ -1,11 +1,10 @@
 <template>
+  <Nav />
   <div class="blog-container"></div>
 </template>
 
-<script setup lang="ts" name="home"></script>
+<script setup lang="ts" name="home">
+import Nav from '/@/view/blog/nav/index.vue';
+</script>
 
-<style lang="scss" scoped>
-.blog-container {
-  margin-top: 65px;
-}
-</style>
+<style lang="scss" scoped></style>
