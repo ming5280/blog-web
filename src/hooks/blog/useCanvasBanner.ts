@@ -141,11 +141,11 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
     };
 
     // : DotOptions
-    // const option = {
-    //   ctx,
-    //   canvasEl,
-    //   count: dots.dotCount,
-    // };
+    const option = {
+      ctx,
+      canvasEl,
+      // count: dots.dotCount,
+    };
 
     // 小圆点
     const dots = {
