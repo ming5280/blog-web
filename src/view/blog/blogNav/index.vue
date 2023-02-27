@@ -189,68 +189,6 @@
     }
   }
 
-  .blog-container {
-    margin: 0 15px;
-    position: relative;
-  }
-
-  /* 小屏幕（平板，大于等于 768px） */
-  @media (min-width: 768px) {
-    .blog-container {
-      width: 738px;
-      margin: 0 auto;
-    }
-
-    // .blog-main > .blog-main-right > .blog-module {
-    //   width: 45%;
-    //   margin-bottom: 15px;
-    // }
-
-    // .blog-main > .blog-main-right > .blog-module:nth-child(odd) {
-    //   float: left;
-    //   clear: left;
-    // }
-
-    // .blog-main > .blog-main-right > .blog-module:nth-child(odd).blog-module:last-child {
-    //   width: auto;
-    //   float: none;
-    //   clear: both;
-    // }
-
-    // .blog-main > .blog-main-right > .blog-module:nth-child(even) {
-    //   float: right;
-    //   clear: right;
-    // }
-  }
-
-  /* 中等屏幕（桌面显示器，大于等于 992px） */
-  @media (min-width: 992px) {
-    .blog-container {
-      width: 962px;
-    }
-
-    // .blog-main > .blog-main-left {
-    //   width: 66%;
-    // }
-
-    // .blog-main > .blog-main-right {
-    //   width: 32%;
-    // }
-
-    // .blog-main > .blog-main-right > .blog-module {
-    //   width: auto;
-    //   float: none !important;
-    // }
-  }
-
-  /* 大屏幕（大桌面显示器，大于等于 1200px） */
-  @media (min-width: 1200px) {
-    .blog-container {
-      width: 1170px;
-    }
-  }
-  /*全局样式END*/
-
   /*面包屑导航*/
   .sitemap {
     background: #fff;

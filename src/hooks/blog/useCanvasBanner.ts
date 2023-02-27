@@ -112,7 +112,6 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
   // 创建canvas banner
   const createCanvasBanner = () => {
     const canvasEl = unref(canvasRef);
-    console.log('bannerCanvas>>>', canvasEl);
 
     // 设置canvas宽高
     canvasEl.width = window.document.body.clientWidth - 10; //减去滚动条的宽度
@@ -169,35 +168,6 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
       d_radius: dotRadius,
       array: [],
     };
-
-    // function Color(min) {
-    //   min = min || 0;
-    //   this.r = colorValue(min);
-    //   this.g = colorValue(min);
-    //   this.b = colorValue(min);
-    //   this.style = createColorStyle(this.r, this.g, this.b);
-    // }
-
-    // function Dot() {
-    //   this.x = Math.random() * canvasEl.width;
-    //   this.y = Math.random() * canvasEl.height;
-
-    //   this.vx = -0.5 + Math.random();
-    //   this.vy = -0.5 + Math.random();
-
-    //   this.radius = Math.random() * 2;
-
-    //   this.color = new Color();
-    // }
-
-    // Dot.prototype = {
-    //   draw: function () {
-    //     ctx.beginPath();
-    //     ctx.fillStyle = '#fff';
-    //     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    //     ctx.fill();
-    //   },
-    // };
 
     function createDots(option: DotOptions, count: number) {
       const arr: Array<DotInstance> = [];
