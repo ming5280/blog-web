@@ -34,20 +34,27 @@ interface DotOptions {
   canvasEl: HTMLCanvasElement;
 }
 
+interface Dots {
+  count: number;
+  distance: number;
+  d_radius: number;
+  array: Array<DotInstance>;
+}
+
 export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
-  function colorValue(min: number): number {
+  function colorValue(min: number) {
     return Math.floor(Math.random() * 255 + min);
   }
 
-  function createColorStyle(r: number, g: number, b: number): string {
+  function createColorStyle(r: number, g: number, b: number) {
     return 'rgba(' + r + ',' + g + ',' + b + ', 0.8)';
   }
 
-  function mixComponents(comp1: number, weight1: number, comp2: number, weight2: number): number {
+  function mixComponents(comp1: number, weight1: number, comp2: number, weight2: number) {
     return (comp1 * weight1 + comp2 * weight2) / (weight1 + weight2);
   }
 
-  function averageColorStyles(dot1: DotInstance, dot2: DotInstance): string {
+  function averageColorStyles(dot1: DotInstance, dot2: DotInstance) {
     const color1 = dot1.color,
       color2 = dot2.color;
 
@@ -94,7 +101,7 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
       this.color = new Color();
     }
 
-    draw(): void {
+    draw() {
       this.ctx.beginPath();
       this.ctx.fillStyle = '#fff';
       this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
@@ -102,9 +109,18 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
     }
   }
 
-  const bannerInit = (): void => {
+  // 创建canvas banner
+  const createCanvasBanner = () => {
     const canvasEl = unref(canvasRef);
     console.log('bannerCanvas>>>', canvasEl);
+
+    // 设置canvas宽高
+    canvasEl.width = window.document.body.clientWidth - 10; //减去滚动条的宽度
+    if (screen.width >= 992) {
+      canvasEl.height = (window.innerHeight * 1) / 3;
+    } else {
+      canvasEl.height = (window.innerHeight * 2) / 7;
+    }
 
     //需要重新设置canvas宽度，因为dom加载完毕后有可能没有滚动条
     canvasEl.width = window.document.body.clientWidth;
@@ -144,15 +160,14 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
     const option = {
       ctx,
       canvasEl,
-      // count: dots.dotCount,
     };
 
     // 小圆点
-    const dots = {
+    const dots: Dots = {
       count: dotCount,
       distance: dotDistance,
       d_radius: dotRadius,
-      array: createDots(option),
+      array: [],
     };
 
     // function Color(min) {
@@ -184,17 +199,16 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
     //   },
     // };
 
-    function createDots(option: DotOptions): Array<DotInstance> {
+    function createDots(option: DotOptions, count: number) {
       const arr: Array<DotInstance> = [];
-      console.log(dots);
-      for (let i = 0; i < dots.count; i++) {
+      for (let i = 0; i < count; i++) {
         const newDot: DotInstance = new Dot(option);
         arr.push(newDot);
       }
       return arr;
     }
 
-    function moveDots(): void {
+    function moveDots() {
       for (let i = 0; i < dots.count; i++) {
         const dot = dots.array[i];
 
@@ -270,6 +284,7 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
     });
 
     // createDots();
+    dots.array = createDots(option, dots.count);
     requestAnimationFrame(animateDots);
   };
 
@@ -285,5 +300,5 @@ export function useCanvasBanner(canvasRef: Ref<HTMLCanvasElement>) {
     window.addEventListener('resize', resizeCanvas, false);
   });
 
-  return { bannerInit };
+  return { createCanvasBanner };
 }

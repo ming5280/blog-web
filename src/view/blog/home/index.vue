@@ -10,4 +10,8 @@
   import CanvasBanner from '/@/view/blog/home/canvasBanner.vue';
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .blog-body {
+    margin-top: 65px;
+  }
+</style>
