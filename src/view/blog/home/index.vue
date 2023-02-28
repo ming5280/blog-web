@@ -18,6 +18,7 @@
         <div class="blog-main-right">
           <!-- 个人信息 -->
           <BlogerInfo />
+          <div></div>
           <!-- 热文排行 -->
           <ArticleRank />
           <!-- 最近分享 -->

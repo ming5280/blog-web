@@ -1,14 +1,7 @@
 /**
- * 动态计算内容高度，根据锚点dom最下坐标到屏幕最下坐标，根据传入dom的高度、padding、margin等值进行动态计算
- * 最终获取合适的内容高度
+ * canvas动画
  *
- * @param flag 用于开启计算的响应式标识
- * @param anchorRef 锚点组件 Ref<ElRef | ComponentRef>
- * @param subtractHeightRefs 待减去高度的组件列表 Ref<ElRef | ComponentRef>
- * @param substractSpaceRefs 待减去空闲空间(margins/paddings)的组件列表 Ref<ElRef | ComponentRef>
- * @param offsetHeightRef 计算偏移的响应式高度，计算高度时将直接减去此值
- * @param upwardSpace 向上递归减去空闲空间的 层级 或 直到指定class为止 数值为2代表向上递归两次|数值为ant-layout表示向上递归直到碰见.ant-layout为止
- * @returns 响应式高度
+ * @param canvasRef canvas组件 Ref<HTMLCanvasElement>
  */
 import type { Ref } from 'vue';
 interface ColorInstance {
