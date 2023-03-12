@@ -2,27 +2,49 @@
   <div class="home-tips shadow">
     <i style="float: left; line-height: 17px" class="fa fa-volume-up"></i>
     <div class="home-tips-container">
-      <span style="color: #009688"
-        >偷偷告诉大家，本博客的后台管理也正在制作，为大家准备了游客专用账号！</span
-      >
-      <span style="color: red">网站新增留言回复啦！使用QQ登陆即可回复，人人都可以回复！</span>
-      <span style="color: red"
-        >如果你觉得网站做得还不错，来Fly社区点个赞吧！<a
-          href="http://fly.layui.com/case/2017/"
-          target="_blank"
-          style="color: #01aaed"
-          >点我前往</a
-        ></span
-      >
-      <span style="color: #009688"
-        >个人博客 &nbsp;——
-        &nbsp;一个.NET程序员的个人博客，新版网站采用Layui为前端框架，目前正在建设中！</span
-      >
+      <div v-for="(item, index) in tipList" :key="index">
+        <transition name="fade">
+          <span
+            :style="{ color: item.color }"
+            v-html="item.name"
+            v-show="currentIndex === index"
+          ></span>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts" name="HomeTips"></script>
+<script setup lang="ts" name="HomeTips">
+  import { getHomeTips } from '/@/api/blog/home';
+
+  let timer = 0;
+  const currentIndex = ref<number>(0);
+  // any[] 与 Array<any> 区别？
+  const tipList = ref<any[]>([]);
+
+  const getTipData = async () => {
+    const { list } = await getHomeTips({ id: '1' });
+    tipList.value = list;
+    playAnnouncement(3000);
+  };
+
+  const playAnnouncement = (interval) => {
+    timer = window.setInterval(() => {
+      currentIndex.value++;
+      if (currentIndex.value >= tipList.value.length) {
+        currentIndex.value = 0;
+      }
+    }, interval);
+  };
+
+  getTipData();
+
+  onBeforeUnmount(() => {
+    clearInterval(timer);
+    timer = 0;
+  });
+</script>
 
 <style lang="scss" scoped>
   .home-tips {

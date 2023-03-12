@@ -7,7 +7,6 @@
   import { useCanvasBanner } from '/@/hooks/blog/useCanvasBanner';
 
   const canvasBanner = ref<Nullable<HTMLCanvasElement>>(null);
-
   const { createCanvasBanner } = useCanvasBanner(canvasBanner as Ref<HTMLCanvasElement>);
 
   onMounted(() => {
