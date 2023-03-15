@@ -1,48 +1,60 @@
-<template>
-  <div class="home-tips shadow">
-    <i style="float: left; line-height: 17px" class="fa fa-volume-up"></i>
-    <div class="home-tips-container">
-      <div v-for="(item, index) in tipList" :key="index">
-        <transition name="fade">
-          <span
-            :style="{ color: item.color }"
-            v-html="item.name"
-            v-show="currentIndex === index"
-          ></span>
-        </transition>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts" name="HomeTips">
+<script lang="tsx">
+  import { Transition } from 'vue';
   import { getHomeTips } from '/@/api/blog/home';
 
-  let timer = 0;
-  const currentIndex = ref<number>(0);
-  // any[] 与 Array<any> 区别？
-  const tipList = ref<any[]>([]);
+  export default defineComponent({
+    name: 'HomeTips',
+    setup() {
+      let timer = 0;
+      const currentIndex = ref<number>(0);
+      const tipList = ref<any[]>([]);
 
-  const getTipData = async () => {
-    const { list } = await getHomeTips({ id: '1' });
-    tipList.value = list;
-    playAnnouncement(3000);
-  };
+      const getTipData = async () => {
+        const { list } = await getHomeTips({ id: '1' });
+        tipList.value = list;
+        playAnnouncement(3000);
+      };
 
-  const playAnnouncement = (interval) => {
-    timer = window.setInterval(() => {
-      currentIndex.value++;
-      if (currentIndex.value >= tipList.value.length) {
-        currentIndex.value = 0;
-      }
-    }, interval);
-  };
+      const playAnnouncement = (interval: number) => {
+        timer = window.setInterval(() => {
+          currentIndex.value++;
+          if (currentIndex.value >= tipList.value.length) {
+            currentIndex.value = 0;
+          }
+        }, interval);
+      };
 
-  getTipData();
+      getTipData();
 
-  onBeforeUnmount(() => {
-    clearInterval(timer);
-    timer = 0;
+      onBeforeUnmount(() => {
+        clearInterval(timer);
+        timer = 0;
+      });
+
+      // domPropsInnerHTML
+      const renderTipItem = () => {
+        return tipList.value.map((item, index) => {
+          return (
+            <Transition name="fade">
+              <span
+                style={{
+                  color: item.color,
+                }}
+                v-show={currentIndex.value === index}
+                v-html={item.name}
+              ></span>
+            </Transition>
+          );
+        });
+      };
+
+      return () => (
+        <div class="home-tips shadow">
+          <i style="float: left; line-height: 17px" class="fa fa-volume-up"></i>
+          <div class="home-tips-container">{renderTipItem()}</div>
+        </div>
+      );
+    },
   });
 </script>
 
