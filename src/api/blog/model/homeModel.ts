@@ -1,5 +1,5 @@
 export type HomeTipsParams = {
-  id: string;
+  id: ;
 };
 
 export interface TipInfo {
@@ -9,6 +9,28 @@ export interface TipInfo {
   color: string;
 }
 
-export type GetHomeTipsResultModel = {
+export type HomeTipsGetResultModel = {
   list: TipInfo[];
+};
+
+export type HomeArticleLsitParams = {
+  id: string;
+  page?: number;
+  pageSize?: number;
+};
+
+export interface ArticleInfo {
+  id: string;
+  title: string;
+  picturePath: string;
+  describe: string;
+  releaseTime: string;
+  author: string;
+  classification: string;
+  numOfComments: number;
+  numOfViews: number;
+}
+export type HomeArticleLsitGetResultModel = {
+  list: TipInfo[];
+  total: number;
 };

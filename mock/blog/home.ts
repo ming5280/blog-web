@@ -2,9 +2,29 @@ import { MockMethod } from 'vite-plugin-mock';
 // 单纯的使⽤⾃⼰的返回数据话，可以不⽤引⼊mockjs
 // http://mockjs.com/examples.html
 import Mock, { Random } from 'mockjs';
-import { resultError, resultSuccess, requestParams } from '../_util';
+import { resultError, resultSuccess, requestParams, resultPageSuccess } from '../_util';
+
+const generateArticleLsit = () => {
+  const result: any[] = [];
+  for (let index = 0; index < 30; index++) {
+    result.push({
+      id: '@id',
+      title: '基于laypage的layui扩展模块（pagesize.js）！',
+      picturePath: '201703181909057125.jpg',
+      describe:
+        '该模块主要是针对当前版本laypage没有页容量控制功能而制作，使用该模块后即可实现每页显示多少条数据的控制！本人原创，但是可能有可能只对本人的分页写法有用！',
+      releaseTime: '@datetime',
+      author: 'Absolutely',
+      classification: 'Web前端',
+      'numOfComments|1-100': 100,
+      'numOfViews|1-100': 100,
+    });
+  }
+  return result;
+};
 
 export default [
+  // 首页公告
   {
     url: '/mock/api/homeTips',
     timeout: 1000,
@@ -31,6 +51,20 @@ export default [
           ],
         }),
       );
+    },
+  },
+
+  // 首页文章列表
+  {
+    url: '/mock/api/homeArticleLsit',
+    timeout: 1000,
+    method: 'get',
+    response: (request: requestParams) => {
+      const { id, page = 1, pageSize = 10 } = request.query;
+      if (!id) {
+        return resultError('id不存在！');
+      }
+      return resultPageSuccess(page, pageSize, generateArticleLsit());
     },
   },
 ] as MockMethod[];

@@ -1,31 +1,87 @@
 <template>
   <div class="article-list">
-    <div class="article shadow" v-for="item in 8" :key="item">
-      <div class="article-left">
-        <img :src="ArticleImg" alt="基于laypage的layui扩展模块（pagesize.js）！" />
-      </div>
-      <div class="article-right">
-        <div class="article-title">
-          <a href="detail.html">基于laypage的layui扩展模块（pagesize.js）！</a>
+    <el-skeleton :loading="loading" animated :count="3">
+      <template #template>
+        <div style="background-color: #fff; padding: 15px">
+          <el-skeleton-item variant="image" style="width: 184px; height: 97px" />
+          <el-skeleton-item variant="h3" style="width: 50%" />
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-items: space-between;
+              margin-top: 16px;
+              height: 16px;
+            "
+          >
+            <el-skeleton-item variant="text" style="margin-right: 16px" />
+            <el-skeleton-item variant="text" style="width: 30%" />
+          </div>
+          <!-- <div style="padding: 14px">
+            <el-skeleton-item variant="h3" style="width: 50%" />
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-items: space-between;
+                margin-top: 16px;
+                height: 16px;
+              "
+            >
+              <el-skeleton-item variant="text" style="margin-right: 16px" />
+              <el-skeleton-item variant="text" style="width: 30%" />
+            </div>
+          </div> -->
         </div>
-        <div class="article-abstract">
-          该模块主要是针对当前版本laypage没有页容量控制功能而制作，使用该模块后即可实现每页显示多少条数据的控制！本人原创，但是可能有可能只对本人的分页写法有用！
+      </template>
+      <template #default>
+        <div class="article shadow" v-for="(item, index) in articleList" :key="index">
+          <div class="article-left">
+            <img :src="ArticleImg" :alt="item.title" />
+          </div>
+          <div class="article-right">
+            <div class="article-title">
+              <a href="detail.html">{{ item.title }}</a>
+            </div>
+            <div class="article-abstract">{{ item.describe }}</div>
+          </div>
+          <div class="clear"></div>
+          <div class="article-footer">
+            <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{ item.releaseTime }}</span>
+            <span class="article-author"
+              ><i class="fa fa-user"></i>&nbsp;&nbsp;{{ item.author }}</span
+            >
+            <span
+              ><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">{{ item.classification }}</a></span
+            >
+            <span class="article-viewinfo"
+              ><i class="fa fa-eye"></i>&nbsp;{{ item.numOfViews }}</span
+            >
+            <span class="article-viewinfo"
+              ><i class="fa fa-commenting"></i>&nbsp;{{ item.numOfComments }}</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="clear"></div>
-      <div class="article-footer">
-        <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2017-03-18</span>
-        <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;Absolutely</span>
-        <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">Web前端</a></span>
-        <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;0</span>
-        <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;4</span>
-      </div>
-    </div>
+      </template>
+    </el-skeleton>
   </div>
 </template>
 
 <script setup lang="ts" name="ArticleList">
   import ArticleImg from '/@/assets/images/blog/cover/201703181909057125.jpg';
+  import { getHomeArticleLsit } from '/@/api/blog/home';
+
+  const loading = ref(false);
+  const articleList = ref<any[]>([]);
+  const articleTotal = ref(0);
+  const getArticleData = async () => {
+    loading.value = true;
+    const res = await getHomeArticleLsit({ id: '1', page: 1, pageSize: 10 });
+    articleList.value = res.list;
+    articleTotal.value = res.total;
+    loading.value = false;
+  };
+  getArticleData();
 </script>
 
 <style lang="scss" scoped>
