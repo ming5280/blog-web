@@ -1,43 +1,30 @@
 <template>
   <div class="article-list">
-    <el-skeleton :loading="loading" animated :count="3">
+    <el-skeleton :loading="loading" animated :count="5">
       <template #template>
-        <div style="background-color: #fff; padding: 15px">
-          <el-skeleton-item variant="image" style="width: 184px; height: 97px" />
-          <el-skeleton-item variant="h3" style="width: 50%" />
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              justify-items: space-between;
-              margin-top: 16px;
-              height: 16px;
-            "
-          >
-            <el-skeleton-item variant="text" style="margin-right: 16px" />
-            <el-skeleton-item variant="text" style="width: 30%" />
-          </div>
-          <!-- <div style="padding: 14px">
-            <el-skeleton-item variant="h3" style="width: 50%" />
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                justify-items: space-between;
-                margin-top: 16px;
-                height: 16px;
-              "
-            >
-              <el-skeleton-item variant="text" style="margin-right: 16px" />
-              <el-skeleton-item variant="text" style="width: 30%" />
+        <div style="background-color: #fff; padding: 15px; margin-bottom: 10px; height: 125px">
+          <div style="display: flex">
+            <el-skeleton-item variant="image" style="width: 184px; height: 97px; flex-shrink: 0" />
+            <div style="width: 100%; margin-left: 15px">
+              <el-skeleton-item variant="h1" style="width: 80%; margin-bottom: 5px" />
+              <el-skeleton-item variant="text" style="margin: 2px 0" />
+              <el-skeleton-item variant="text" style="margin: 2px 0" />
+              <el-skeleton-item variant="text" style="margin: 2px 0" />
             </div>
-          </div> -->
+          </div>
+
+          <div class="skeleton-text">
+            <el-skeleton-item variant="text" style="width: 100px; margin-right: 10px" />
+            <el-skeleton-item variant="text" style="width: 100px; margin-right: 10px" />
+            <el-skeleton-item variant="text" style="width: 100px; margin-right: 10px" />
+          </div>
         </div>
       </template>
+
       <template #default>
         <div class="article shadow" v-for="(item, index) in articleList" :key="index">
           <div class="article-left">
-            <img :src="ArticleImg" :alt="item.title" />
+            <img :src="getAssetsFile(item.picturePath)" :alt="item.title" />
           </div>
           <div class="article-right">
             <div class="article-title">
@@ -68,8 +55,8 @@
 </template>
 
 <script setup lang="ts" name="ArticleList">
-  import ArticleImg from '/@/assets/images/blog/cover/201703181909057125.jpg';
   import { getHomeArticleLsit } from '/@/api/blog/home';
+  import { getAssetsFile } from '/@/utils/pubUse';
 
   const loading = ref(false);
   const articleList = ref<any[]>([]);
@@ -81,6 +68,7 @@
     articleTotal.value = res.total;
     loading.value = false;
   };
+
   getArticleData();
 </script>
 
@@ -113,8 +101,10 @@
   }
 
   .article > .article-left > img {
-    width: 100%;
-    height: auto;
+    // width: 100%;
+    // height: auto;
+    width: 184px;
+    height: 97px;
   }
 
   .article > .article-right {
@@ -133,6 +123,14 @@
 
   .article > .article-right > .article-abstract {
     display: none;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden; //溢出内容隐藏
+    text-overflow: ellipsis; //文本溢出部分用省略号表示
+    display: -webkit-box; //特别显示模式
+    -webkit-line-clamp: 3; //行数
+    line-clamp: 2;
+    -webkit-box-orient: vertical; //盒子中内容竖直排列
   }
 
   .article > .article-footer {
@@ -165,6 +163,13 @@
     position: relative;
     top: -1px;
     font-size: 13px;
+  }
+
+  .skeleton-text {
+    display: flex;
+    justify-items: space-between;
+    margin-top: 10px;
+    height: 16px;
   }
 
   @media (min-width: 768px) {
